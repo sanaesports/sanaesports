@@ -1,0 +1,180 @@
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#22293b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sona Esports">
+<link rel="apple-touch-icon" href="https://i.ibb.co/Xr4BxNL5/icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/8aa17a250d.js" crossorigin="anonymous"></script>
+<link rel="icon" type="image/x-icon" href="https://i.ibb.co/Xr4BxNL5/icon.png">
+<title>Sona Esports</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="loader.css">
+<style>
+    .header { justify-content: space-evenly;}
+    #loader { display: flex;}
+    #coinsDisplay { font-size: 18px;}
+    .parts { display: flex; align-items: center; justify-content: space-evenly;}
+    .parts > a { display: flex; align-items: center; flex-direction: column; gap: 5px; background: #fff; width: 100px; height: 100px; justify-content: space-evenly; border-radius: 4px;}
+    .footer { padding: 15px 0; position: fixed; bottom: 0; display: flex; align-items: center; justify-content: space-around; width: 100%; background: #000;}
+    .footer > a { font-size: 22px; color: #dddd; display: flex; flex-direction: column; gap: 5px; align-items: center;}
+    .footer > a > span { font-size: 14px; }
+    .more { padding: 6px; border-radius: 50%;}
+    .parts > a > p { color: #000; font-weight: 600; font-size: 15px; }
+    .parts > a > i { color: #fff; padding: 10px; border-radius: 8px; background: linear-gradient(45deg, #01e2a0, #00a5f5); font-size: 25px; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; }
+    .name { display: flex; flex-direction: column; align-items: center; justify-content: center;}
+    .name > h3 { font-weight: 700; font-size: 17px;}
+    #modesContainer { padding: 15px 15px 20% 15px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-evenly; align-items: center; flex: 1 0 calc(30% - 10px); box-sizing: border-box;}
+    .mode-item { text-align: center; height: auto; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 29%; background: #002d35; border-radius: 8px; padding: 0px 0px 10px 0px; }
+    .mode-item > img { width: 100%; height: 95px; border-radius: 12px 12px 0px 0px;}
+    .image-container { display: flex; align-items: center; justify-content: center; }
+    #currentImage { max-width: 300px; border-radius: 12px;}
+    .mode-item > h3 { font-size: 12px; font-weight: 600; }
+    .dots-container { text-align: center; margin-top: 10px; }
+    .dot { height: 10px; width: 10px; margin: 0 5px; background-color: transparent; border: 1px solid #eee; border-radius: 50%; display: inline-block; cursor: pointer; }
+    .dot.active { background-color: #eee; }
+    .noti { justify-content: center; display: flex; padding: 10px 20px; align-items: center;  margin: 15px 0 0 0; }
+    .noti > i { border-radius: 8px 0 0 8px; background: #FFA500; padding: 10px 20px; font-size: 24px; height: 40px; display: flex; align-items: center; }
+    .noti > p { border-radius: 0 8px 8px 0; background: #fff; color: #333; padding: 10px 20px; font-size: 14px; height: 40px; display: flex; align-items: center; }
+    #coinsDisplay { border-radius: 4px; background: #fff; }
+    #coinsDisplay  { font-size: 14px; }
+    #coinsDisplay > img { width: 20px; }
+    .bannertext { text-align: center; }
+    .bannertext > h2 { font-size: 18px; margin: 10px 0; font-weight: 500; }
+</style>
+<div class="header">
+    <img src="https://i.ibb.co/Xr4BxNL5/icon.png">
+    <div class="name">
+        <p>Welcome Back,</p>
+        <h3>Sona Esports</h3>
+    </div>
+    <p id="coinsDisplay"></p>
+</div>
+<div class="noti">
+    <i class="fa-solid fa-bullhorn"></i>
+    <p>Games Modes Helps To Find Beast</p>
+</div>
+<div class="slider-container">
+    <div class="image-container">
+        <img id="currentImage" src="">
+    </div>
+    <div class="dots-container" id="dotsContainer"></div>
+</div>
+<div class="bannertext">
+    <h2>My Matches</h2>
+</div>
+<div class="parts">
+    <a href="ongoing.html">
+        <i class="fa-solid fa-repeat"></i>
+        <p>Ongoing</p>
+    </a>
+    <a href="upcoming.html">
+        <i class="fa-solid fa-calendar-days"></i>
+        <p>Upcoming</p>
+    </a>
+    <a href="completed.html">
+        <i class="fa-solid fa-check"></i>
+        <p>Completed</p>
+    </a>
+</div>
+<div class="bannertext">
+    <h2>Esports Games</h2>
+</div>
+<div id="modesContainer"></div>
+<div class="footer">
+    <a href="refer.html">
+        <i class="fa-solid fa-gift"></i>
+        <span>Refer</span>
+    </a>
+    <a onclick="reload()" style="color:  #fff;">
+        <i class="fa-solid fa-gamepad"></i>
+        <span>Game</span>
+    </a>
+    <a href="more.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Me</span>
+    </a>
+</div>
+<div id="loader"><div class="loader"></div></div>
+<script>
+    window.onload = function () {
+        let username = localStorage.getItem("tour_local");
+        if (!username) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        checkUserStatus(username);
+    };
+
+    function checkUserStatus(username) {
+        fetch(`https://script.google.com/macros/s/AKfycbwYJlamTGxZlYS0U92sMwtsPTj00WMJ5d5G1Y1UL1Mw-SvnsLLgATPY540FJYnmV54KGA/exec?action=getCoins&username=${username}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.banned) {
+                alert("Your Account Has Been Banned");
+                localStorage.removeItem("tour_local");
+                window.location.href = "login.html";
+            } else {
+                fetchModes();
+                fetchUserCoins(username);
+                setupCoinsClick();
+            }
+        })
+        .catch(error => console.error("Error checking user status:", error));
+    }
+
+    function fetchModes() {
+        fetch("https://script.google.com/macros/s/AKfycbwYJlamTGxZlYS0U92sMwtsPTj00WMJ5d5G1Y1UL1Mw-SvnsLLgATPY540FJYnmV54KGA/exec?action=getModes")
+        .then(response => response.json())
+        .then(data => {
+            let modesContainer = document.getElementById("modesContainer");
+            let loader = document.getElementById("loader");
+            modesContainer.innerHTML = "";
+
+            data.forEach(mode => {
+                let modeElement = document.createElement("div");
+                modeElement.classList.add("mode-item");
+                modeElement.onclick = function () {
+                    localStorage.setItem("mode", mode.mode);
+                    window.location.href = "tournament.html";
+                };
+                modeElement.innerHTML = `
+                    <img src="${mode.image}" alt="${mode.title}" width="200">
+                    <h3>${mode.title}</h3>
+                `;
+                modesContainer.appendChild(modeElement);
+            });
+
+            loader.style.display = "none";
+        })
+        .catch(error => console.error("Error fetching modes:", error));
+    }
+
+    function fetchUserCoins(username) {
+        fetch(`https://script.google.com/macros/s/AKfycbwYJlamTGxZlYS0U92sMwtsPTj00WMJ5d5G1Y1UL1Mw-SvnsLLgATPY540FJYnmV54KGA/exec?action=getCoins&username=${username}`)
+        .then(response => response.json())
+        .then(data => {
+            let coinsDisplay = document.getElementById("coinsDisplay");
+            coinsDisplay.innerHTML = `
+                <img src="https://i.ibb.co/S4qqh6Z9/coin.png" alt="Coins" width="25" style="vertical-align: middle; margin-right: 5px;">
+                ${data.coins}
+            `;
+        })
+        .catch(error => console.error("Error fetching coins:", error));
+    }
+
+    function setupCoinsClick() {
+        let coinsDisplay = document.getElementById("coinsDisplay");
+        coinsDisplay.style.cursor = "pointer";
+        coinsDisplay.onclick = function () {
+            window.location.href = "add_coins.html";
+        };
+    }
+
+    function reload() {
+        location.reload();
+    }
+</script>
+<script src="slider.js"></script>
